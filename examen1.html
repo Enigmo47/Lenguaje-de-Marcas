@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="examenCss.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>musicos</title>
+    <script>
+        var musicos = [
+            {
+                id: 1,
+                picture: "Robert_Smith_of_The_Cure_live_in_Singapore_1_August_2007.jpg",
+                nombre: "Robert",
+                apellidos: " Smith",
+                grupo: "The Cure"
+            },
+            {
+                id: 2,
+                picture: "Simon_Gallup_2012.jpeg",
+                nombre: "Simon",
+                apellidos: "Gallup",
+                grupo: "The Cure"
+            },
+            {
+                id: 3,
+                picture: "Roger_ODonnell.jpg",
+                nombre: "Roger",
+                apellidos: "O'Donnell",
+                grupo: "The Cure"
+            },
+            {
+                id: 4,
+                picture: "Roger_Waters_18_May_2008_London_O2_Arena.jpg",
+                nombre: "Roger",
+                apellidos: "Waters",
+                grupo: "Pink Floyd"
+            },
+            {
+                id: 5,
+                picture: "David_Gilmour_Madison_Square_Garden_April_2016.jpg",
+                nombre: "David",
+                apellidos: "Gilmour",
+                grupo: "Pink Floyd"
+            },
+            {
+                id: 6,
+                picture: "Nick_Mason.jpeg",
+                nombre: "Nick",
+                apellidos: " Mason",
+                grupo: "Pink Floyd"
+            }];
+            var anterior 
+            var siguiente
+            var nombre
+            var grupo
+            var posicion
+            var foto
+            var buscar
+            var resultado
+            var musico
+            
+
+            function iniciar (){
+                anterior = document.getElementById("b-izquierda");
+                siguiente = document.getElementById("b-derecha");
+                resultado = [];
+                posicion = 0;
+
+            }
+
+            function esconder (){
+                if(posicion === 0)
+                anterior.setAttribute('disabled', '');
+            }
+            window.onload = function (){
+                iniciar();
+                esconder();
+                mostrar();
+            }
+
+            function pasar(){
+                if(posicion === (musicos.length-1))
+                siguiente.setAttribute('disabled','');
+                anterior.removeAttribute('disabled');
+                posicion++;
+                mostrar();
+                
+            }
+            function retroceder(){
+                if(posicion === 1)
+                anterior.setAttribute('disabled','');
+                siguiente.removeAttribute('disabled');
+                posicion--;
+                mostrar()
+                
+            }
+        
+            function mostrar (){
+               
+                var textoNombre = document.getElementById("nombre");
+                var textoGrupo = document.getElementById("grupo");
+                var divPicture = document.getElementById("picture");
+
+                musico = musicos[posicion];
+                textoNombre.innerText = (musico.nombre + " "+  musico.apellidos);
+                textoGrupo.innerText = (musico.grupo);
+                divPicture.style.backgroundImage = "url('./static/pictures/" + musicos[posicion].picture + "')";
+            }
+            
+            function decideMusico(musico) {
+                buscar = document.getElementById("filtro").value;
+                return buscar === "" || musico.grupo.toLowerCase().startsWith(buscar.toLowerCase());
+            }
+
+            function filtrar () {
+                resultado = musicos.filter(decideMusico); 
+                alert(resultado)
+
+                if(resultado.length === 0) {
+                    alert('No se han encontrado');
+                }
+            }
+
+    </script>
+</head>
+<body>
+
+    <nav>
+        <div id="titulo">
+            <p>IES Pablo Serrano</p>
+        </div>
+        <div id="iconos">
+            <a href="#" id="git">Github<i class="fa fa-github"></i></a>
+            <a href="#" id="tw">Twitter<i class="fa fa-twitter-square"></i></a>
+        </div>
+    </nav>
+
+    <div class="card">
+
+        <div class="card-picture"></div>
+        <div class="card-text">
+            <h1 id="nombre">Hola</h1>
+            <h1 id="grupo">Esto es un mensaje</h1>
+        </div>
+    </div>
+    <div class="botones">
+        <div class="botones-direccion">
+            <button id="b-izquierda" onclick="retroceder()" >Anterior</button>
+            <button id="b-derecha" onclick="pasar()">Siguiente</button>
+        </div>
+        <div class="filtrado">
+            <input id="filtro" />
+            <button id="b-filtrar" onclick="filtrar()">Filtrar x Grupo</button>
+        </div>
+    </div>
+    <footer>
+        <a href="https://www.w3schools.com/icons/fontawesome_icons_webapp.asp">w3schools</a>
+        <a href="https://developer.mozilla.org/es/docs/Web/CSS/align-items">mozilla</a>
+        <a href="https://www.iespabloserrano.es/joomla/"> IES Pablo Serrano</a>
+    </footer>
+</body>
+</html>
